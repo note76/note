@@ -1,15 +1,14 @@
-.container {
-  padding: 0 2rem;
-}
-
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.main a {
+  color: #06c;
 }
 
 .footer {
@@ -28,79 +27,68 @@
   flex-grow: 1;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
+.ribbon,
+.free,
 .title,
 .description {
   text-align: center;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+.ribbon {
+  width: 100%;
+  margin-top: 1.2rem;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  color: #1d1d1f;
+  background-color: #f5f5f7;
 }
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
+.free {
+  margin-top: 3rem;
+  font-weight: bold;
   font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+  color: #f56300;
 }
 
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+.title {
+  margin: 0rem;
+  line-height: 0.7;
+  font-size: 3.5rem;
+  font-weight: 600;
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+.subtitle {
+  margin: 1.7rem;
+  line-height: 0;
+  font-weight: 600;
+  font-size: 1.7rem;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
+.description {
+  margin: 0.5rem 0;
   line-height: 1.5;
+  font-size: 1.1rem;
+  color: #1d1d1f;
+}
+
+.buttons {
+  width: 14rem;
+  margin-top: 0.2rem;
+  margin-bottom: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+}
+
+.buttons button {
+  width: 6.3rem;
+  height: 2.2rem;
+  border: 0;
+  font-size: 1.05rem;
+  color: white;
+  border-radius: 5rem;
+  background-color: #06c;
 }
 
 .logo {
@@ -112,18 +100,5 @@
   .grid {
     width: 100%;
     flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
   }
 }
