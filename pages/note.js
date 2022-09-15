@@ -3,8 +3,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
-  const { signin } = useAuth()
+export default function Note() {
+  const { user } = useAuth()
+  console.log(user)
 
   return (
     <div className={styles.container}>
@@ -20,7 +21,7 @@ export default function Home() {
           <a> Comprar &gt;</a>
         </div>
         <p className={styles.free}>Free</p>
-        <h1 className={styles.title}>Note</h1>
+        <h1 className={styles.title}>{user?.email}</h1>
         <h2 className={styles.subtitle}>Seu bloco de anotacoes digital</h2>
         <p className={styles.description}>Um bloco de anotacoes multifucional para todas as suas necessidades.</p>
         <div className={styles.buttons}>
