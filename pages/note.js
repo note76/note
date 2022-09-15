@@ -4,8 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Note() {
-  const { user } = useAuth()
-  console.log(user)
+  const { user, signout } = useAuth()
 
   return (
     <div className={styles.container}>
@@ -25,7 +24,7 @@ export default function Note() {
         <h2 className={styles.subtitle}>Seu bloco de anotacoes digital</h2>
         <p className={styles.description}>Um bloco de anotacoes multifucional para todas as suas necessidades.</p>
         <div className={styles.buttons}>
-          <button onClick={() => signin()}>Comprar</button>
+          <button onClick={() => signout()}>Comprar</button>
           <a>Saiba mais &gt;</a>
         </div>
         <Image src="/RE2lwga.png" alt="Vercel Logo" width={630} height={380} />

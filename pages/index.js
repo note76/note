@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const { signin } = useAuth()
+  const { user, signinGitHub, signinGoogle } = useAuth()
 
   return (
     <div className={styles.container}>
@@ -14,6 +14,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className={styles.auth}>
+        
+      </div>
       <main className={styles.main}>
         <div className={styles.ribbon}>
           Economize na compra do Macbook Air Pro de 13 polegadas na Apple Store Educational*.
@@ -24,10 +27,12 @@ export default function Home() {
         <h2 className={styles.subtitle}>Seu bloco de anotacoes digital</h2>
         <p className={styles.description}>Um bloco de anotacoes multifucional para todas as suas necessidades.</p>
         <div className={styles.buttons}>
-          <button onClick={() => signin()}>Comprar</button>
+          <button>Comprar</button>
           <a>Saiba mais &gt;</a>
         </div>
         <Image src="/RE2lwga.png" alt="Vercel Logo" width={630} height={380} />
+        <button onClick={() => signinGitHub()}>Git</button>
+        <button onClick={() => signinGoogle()}>Google</button>
       </main>
 
       <footer className={styles.footer}>
@@ -36,7 +41,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{' '}`
         </a>
       </footer>
     </div>
