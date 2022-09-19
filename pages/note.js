@@ -11,7 +11,7 @@ export default function Note() {
   const [ title, setTitle ] = useState('')
   const [ note, setNote ] = useState('')
   const [ notes, setNotes ] = useState()
-  const [ key, setKey] = useState('')
+  const [ chave, setChave] = useState('')
   const [ updating, setUpdating ] = useState(false)
 
   function save(){
@@ -27,7 +27,7 @@ export default function Note() {
   }
   function edit(note){
     setUpdating(true)
-    setKey(note.key)
+    setChave(note.chave)
     setPaste(note.paste)
     setTitle(note.title)
     setNote(note.note)
@@ -38,7 +38,7 @@ export default function Note() {
       'title': title,
       'note': note
     }
-    firebase.database().ref('notes').child(key).update(pasteTitleNote)
+    firebase.database().ref('notes').child(chave).update(pasteTitleNote)
     setPaste('')
     setTitle('')
     setNote('')
@@ -49,9 +49,9 @@ export default function Note() {
   }
   useEffect(() => {
     firebase.database().ref('notes').on('value', result => {
-      const resultpasteTitleNote = Object.entries(result.val() ?? {}).map(([key, value]) => {
+      const resultpasteTitleNote = Object.entries(result.val() ?? {}).map(([chave, value]) => {
         return {
-          'key': key,
+          'chave': chave,
           'paste': value.paste,
           'title': value.title,
           'note': value.note
@@ -98,7 +98,7 @@ export default function Note() {
             return (
               <div>
                 <button onClick={() => edit(note)}>Edit</button>
-                <button onClick={() => deleteNote(note.key)}>Delete</button>
+                <button onClick={() => deleteNote(note.chave)}>Delete</button>
                 <h2>{note.paste}</h2>
                 <h1>{note.title}</h1>
                 <p>{note.note}</p>
