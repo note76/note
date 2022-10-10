@@ -20,7 +20,7 @@ export default function Note() {
       title,
       note
     }
-    firebase.database().ref('notes').push(pasteTitleNote)
+    firebase.database().ref(use.email).push(pasteTitleNote)
     setPaste('')
     setTitle('')
     setNote('')
@@ -38,17 +38,17 @@ export default function Note() {
       'title': title,
       'note': note
     }
-    firebase.database().ref('notes').child(key).update(pasteTitleNote)
+    firebase.database().ref(user?.email).child(key).update(pasteTitleNote)
     setPaste('')
     setTitle('')
     setNote('')
     setUpdating(false)
   }
   function deleteNote(ref){
-    firebase.database().ref('notes/'+ref).remove()
+    firebase.database().ref(user?.email+ref).remove()
   }
   useEffect(() => {
-    firebase.database().ref('notes').on('value', result => {
+    firebase.database().ref(user?.email).on('value', result => {
       const resultpasteTitleNote = Object.entries(result.val() ?? {}).map(([key, value]) => {
         return {
           'key': key,
