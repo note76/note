@@ -20,7 +20,7 @@ export default function Note() {
       title,
       note
     }
-    firebase.database().ref('test').push(pasteTitleNote)
+    firebase.database().ref(user?.email).push(pasteTitleNote)
     setPaste('')
     setTitle('')
     setNote('')
