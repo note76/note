@@ -2,6 +2,7 @@ import firebase from '../lib/firebase'
 import useAuth from '../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/Note.module.css'
 
 export default function Note() {
@@ -13,9 +14,13 @@ export default function Note() {
   const [ key, setkey] = useState('')
   const [ selected, setSelected ] = useState('')
   const [ updating, setUpdating ] = useState(false)
-  const testid = user?.email.slice(0, -10)
+  const testid = "pedrodantas2943"
   const [busca, setBusca] = useState()
   const [estaBuscando, setEstaBuscando] = useState(false)
+  const [showModal, setShowModal] = useState(false);
+  console.log(user?.email)
+  
+
 
   function save(){
     const pasteTitleNote = {
@@ -34,6 +39,7 @@ export default function Note() {
     setPaste(note.paste)
     setTitle(note.title)
     setNote(note.note)
+    setShowModal(true)
   }
   function update(){
     const pasteTitleNote = {
@@ -97,26 +103,33 @@ export default function Note() {
       </Head>
 
       <main className={styles.main}>
-      <div>
+        
+      <div className={styles.left}>
+      <div className={styles.account}>
+          <input type="text" placeholder="Search" onChange={buscar}></input>
+        </div>
 
-      <input type="text" placeholder="Search" onChange={buscar}></input>
+      
             {estaBuscando ? 
              busca?.map(note => {
               return (
-                <div key={note.key} onClick={() => selectNote(note.note)}>
-                  <button onClick={() => edit(note)}>Edit</button>
-                  <button onClick={() => deleteNote(note.key)}>Delete</button>
-                  <h2>{note.paste}</h2>
+                <div className={styles.leftNotes} key={note.key} onClick={() => selectNote(note.note)}>
                   <h1>{note.title}</h1>
+                  <div>
+                    <button className={styles.noteOptions} onClick={() => edit(note)}>✏️</button>
+                    <button className={styles.noteOptions} onClick={() => deleteNote(note.key)}>🗑️</button>
+                    </div>
+                  
                 </div>
               )
             }) : notes?.map(note => {
               return (
-                <div key={note.key} onClick={() => selectNote(note.note)}>
-                  <button onClick={() => edit(note)}>Edit</button>
-                  <button onClick={() => deleteNote(note.key)}>Delete</button>
-                  <h2>{note.paste}</h2>
+                <div className={styles.leftNotes} key={note.key} onClick={() => selectNote(note.note)}>
                   <h1>{note.title}</h1>
+                  <div>
+                    <button className={styles.noteOptions} onClick={() => edit(note)}>✏️</button>
+                    <button className={styles.noteOptions} onClick={() => deleteNote(note.key)}>🗑️</button>
+                    </div>
                 </div>
               )
             })
@@ -125,16 +138,30 @@ export default function Note() {
         </div>
         <div className={styles.right}>
           <div className={styles.buttons}>
+            <a>{user?.name}</a>
             <button onClick={() => signout()}>signout</button>
           </div>
+          <div className={styles.containerForm}>
+            <div className={styles.open}>
+              <button type='button' onClick={()=> setShowModal(true)}>Open modal</button>
+            
+            </div>
+            {
+              showModal ? (
+                <div className={styles.formPopup}>
+                  <form>
+                    <button onClick={()=> setShowModal(false)}>X</button>
+                    <input type="text" placeholder="Paste" value={paste} onChange={event => setPaste(event.target.value)}></input>
+                    <input type="text" placeholder="Title" value={title} onChange={event => setTitle(event.target.value)}></input>
+                    <input type="text" placeholder="Note" value={note} onChange={event => setNote(event.target.value)}></input>
+                    {updating ? <button type="button" onClick={update}>Update</button> : <button type="button" onClick={save}>Save</button>}
+                  </form>
+                </div>
+              ) : null
+            }
+          </div>
           <div>
-            <form>
-              <input type="text" placeholder="Paste" value={paste} onChange={event => setPaste(event.target.value)}></input>
-              <input type="text" placeholder="Title" value={title} onChange={event => setTitle(event.target.value)}></input>
-              <input type="text" placeholder="Note" value={note} onChange={event => setNote(event.target.value)}></input>
-              {updating ? <button type="button" onClick={update}>Update</button> : <button type="button" onClick={save}>Save</button>}
-              
-            </form>
+            
             <div>
               <p>{selected}</p>
             </div>
