@@ -1,9 +1,9 @@
 import useAuth from '../hooks/useAuth'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Index.module.css'
 import Link from 'next/link'
 
-export default function Home() {
+export default function Index() {
   const { login } = useAuth()
 
   return (
