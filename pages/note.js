@@ -13,13 +13,13 @@ export default function Note() {
   const [ notes, setNotes ] = useState()
   const [ key, setkey] = useState('')
   const [ selected, setSelected ] = useState('')
+  const [ selectPasta, setSelectPasta] = useState('')
+  const [ selectedPasta, setSelectedPasta] = useState('')
   const [ updating, setUpdating ] = useState(false)
-  const testid = "pedrodantas2943"
+  const testid = user?.uid.replace(/[.,\/#!$%\^&\*;:{}@=\-_`~()]/g,"")
   const [busca, setBusca] = useState()
   const [estaBuscando, setEstaBuscando] = useState(false)
   const [showModal, setShowModal] = useState(false);
-  console.log(user?.email)
-  
 
 
   function save(){
@@ -56,7 +56,8 @@ export default function Note() {
   function deleteNote(ref){
     firebase.database().ref(testid+'/'+ref).remove()
   }
-  function buscar(event){
+
+  function buscarPasta(event){
     const palavra = event.target.value
     if(palavra.length > 0) {
       setEstaBuscando(true)
@@ -64,7 +65,7 @@ export default function Note() {
 
     notes?.map(note => {
       const regra = new RegExp(event.target.value, "gi")
-      if(regra.test(note.title)){
+      if(regra.test(note.paste)){
         dados.push(note)
       }
     })
@@ -75,11 +76,35 @@ export default function Note() {
     }
     
   }
+
+  function pastas(){
+    const palavra = selectPasta;
+    if(palavra.length > 0) {
+      setSelectedPasta(true)
+    const dados = new Array
+
+    notes?.map(note => {
+      if(palavra == note.paste){
+        dados.push(note)
+      }
+      
+    })
+    
+    setBusca(dados)
+    } else{
+      setEstaBuscando(false)
+    }
+    
+  }
+
+
   function selectNote(x){
     setSelected(x)
   }
+
   useEffect(() => {
-    firebase.database().ref(testid).on('value', result => {
+    const timer = setTimeout(()=> {
+      firebase.database().ref(user?.uid.replace(/[.,\/#!$%\^&\*;:{}@=\-_`~()]/g,"")).on('value', result => {
       const resultpasteTitleNote = Object.entries(result.val() ?? {}).map(([key, value]) => {
         return {
           'key': key,
@@ -92,7 +117,12 @@ export default function Note() {
 
       setNotes(resultpasteTitleNote)
     })
-  }, [])
+    
+    })
+    return ()=>{
+      clearTimeout(timer)
+    }
+  })
 
   return (
     <div className={styles.container}>
@@ -106,15 +136,21 @@ export default function Note() {
         
       <div className={styles.left}>
       <div className={styles.account}>
-          <input type="text" placeholder="Search" onChange={buscar}></input>
+          <input type="text" placeholder="Search" onChange={buscarPasta}></input>
         </div>
 
       
             {estaBuscando ? 
              busca?.map(note => {
+
+            
               return (
                 <div className={styles.leftNotes} key={note.key} onClick={() => selectNote(note.note)}>
-                  <h1>{note.title}</h1>
+                  <h1 onClick={()=>{
+                    setSelectPasta(note.paste);
+                    console.log(selectPasta)
+                    pastas()
+                  }}>{note.paste}</h1>
                   <div>
                     <button className={styles.noteOptions} onClick={() => edit(note)}>✏️</button>
                     <button className={styles.noteOptions} onClick={() => deleteNote(note.key)}>🗑️</button>
@@ -125,7 +161,11 @@ export default function Note() {
             }) : notes?.map(note => {
               return (
                 <div className={styles.leftNotes} key={note.key} onClick={() => selectNote(note.note)}>
-                  <h1>{note.title}</h1>
+                  <h1 onClick={()=>{
+                    setSelectPasta(note.paste);
+                    console.log(selectPasta)
+                    pastas()
+                  }}>{note.paste}</h1>
                   <div>
                     <button className={styles.noteOptions} onClick={() => edit(note)}>✏️</button>
                     <button className={styles.noteOptions} onClick={() => deleteNote(note.key)}>🗑️</button>
@@ -135,7 +175,53 @@ export default function Note() {
             })
             
             }
+
+
+
         </div>
+
+
+
+
+
+        <div className={styles.left}>
+      <div className={styles.account}>
+          <input type="text" placeholder="Search"></input>
+        </div>
+
+      
+            {selectedPasta ? 
+             busca?.map(note => {
+              return (
+                <div className={styles.leftNotes} key={note.key}>
+                  <h1 onClick={() => selectNote(note.note)}>{note.title}</h1>
+                  <div>
+                    <button className={styles.noteOptions} onClick={() => edit(note)}>✏️</button>
+                    <button className={styles.noteOptions} onClick={() => deleteNote(note.key)}>🗑️</button>
+                    </div>
+                  
+                </div>
+              )
+            }) : notes?.map(note => {
+              return (
+                <div className={styles.leftNotes} key={note.key} >
+                  <h1 onClick={() => selectNote(note.note)}>{note.title}</h1>
+                  <div>
+                    <button className={styles.noteOptions} onClick={() => edit(note)}>✏️</button>
+                    <button className={styles.noteOptions} onClick={() => deleteNote(note.key)}>🗑️</button>
+                    </div>
+                </div>
+              )
+            })
+            
+            }
+
+
+
+        </div>
+
+
+
         <div className={styles.right}>
           <div className={styles.buttons}>
             <a>{user?.name}</a>
@@ -179,6 +265,7 @@ export default function Note() {
           Powered by{' '}
         </a>
       </footer>
+      
     </div>
   )
 }
