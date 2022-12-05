@@ -94,9 +94,6 @@
   flex-grow: 1;
 }
 
-
-
-
 @media (max-width: 300px) {
   .title {
     font-size: 125px;
