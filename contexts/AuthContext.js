@@ -14,17 +14,17 @@ const formatUser = async (user) => ({
 })
 
 export function AuthProvider({ children }) {
-    const [user, setUSer] = useState(null)
+    const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const handleUser = async (currentUser) => {
         if (currentUser) {
             const formatedUser = await formatUser(currentUser)
-            setUSer(formatedUser)
+            setUser(formatedUser)
             setSession(true)
 
             return formatUser.email
         }
-        setUSer(false)
+        setUser(false)
         setSession(false)
 
         return false
@@ -38,17 +38,7 @@ export function AuthProvider({ children }) {
             cookie.remove('note')
         }
     }
-    const signinGitHub = async () => {
-        try {
-            setLoading(true)
-            const response = await firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider())
-            handleUser(response.user)
-            Router.push('/note')
-        } finally {
-            setLoading(false)
-        }
-    }
-    const signinGoogle =  async () => {
+    const login =  async () => {
         try {
             setLoading(true)
             const response = await firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
@@ -77,8 +67,7 @@ export function AuthProvider({ children }) {
     return <AuthContext.Provider value={{
         user,
         loading,
-        signinGitHub,
-        signinGoogle,
+        login,
         signout
     }}>{children}</AuthContext.Provider>
 }

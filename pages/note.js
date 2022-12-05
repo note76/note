@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Note.module.css'
+import Router from 'next/router'
 
 export default function Note() {
+  
   const { user, signout } = useAuth()
   const [ paste, setPaste ] = useState('')
   const [ title, setTitle ] = useState('')
@@ -16,7 +18,12 @@ export default function Note() {
   const [ selectPasta, setSelectPasta] = useState('')
   const [ selectedPasta, setSelectedPasta] = useState('')
   const [ updating, setUpdating ] = useState(false)
-  const testid = user?.uid.replace(/[.,\/#!$%\^&\*;:{}@=\-_`~()]/g,"")
+  var testid = user?.uid;
+  if(testid != null){
+    testid.replace(/[.,\/#!$%\^&\*;:{}@=\-_`~()]/g,"")
+  } else{
+    testid="dkjfgfh"
+  }
   const [busca, setBusca] = useState()
   const [estaBuscando, setEstaBuscando] = useState(false)
   const [showModal, setShowModal] = useState(false);
@@ -104,7 +111,12 @@ export default function Note() {
 
   useEffect(() => {
     const timer = setTimeout(()=> {
-      firebase.database().ref(user?.uid.replace(/[.,\/#!$%\^&\*;:{}@=\-_`~()]/g,"")).on('value', result => {
+      if (!user){
+        Router.push("/")
+      } else{
+        console.log("logado")
+      }
+      firebase.database().ref(testid).on('value', result => {
       const resultpasteTitleNote = Object.entries(result.val() ?? {}).map(([key, value]) => {
         return {
           'key': key,
@@ -225,7 +237,8 @@ export default function Note() {
         <div className={styles.right}>
           <div className={styles.buttons}>
             <a>{user?.name}</a>
-            <button onClick={() => signout()}>signout</button>
+            <button onClick={() => {signout() 
+              testid='null'}}>signout</button>
           </div>
           <div className={styles.containerForm}>
             <div className={styles.open}>
