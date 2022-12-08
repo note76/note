@@ -7,7 +7,7 @@ export default function Index() {
   const { login } = useAuth()
 
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>Note</title>
         <meta name="description" content="Digital notebook"/>
