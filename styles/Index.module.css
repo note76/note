@@ -83,6 +83,7 @@
 
 .footer {
   height: 10vh;
+  min-height: 64px;
   width: 100vw;
   display: absolute;
   bottom: 0;
@@ -93,14 +94,6 @@
   text-align: center;
   line-height: 5vh;
   font-size: 20px;
-  background-color: white;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
 }
 
 @media (max-width: 300px) {
