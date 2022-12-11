@@ -8,9 +8,10 @@
 .header {
   width: 100vw;
   height: 50px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(225, 225, 225);
   display: flex;
   align-items: center;
+  background-color: rgb(252, 252, 252);
 }
 
 .searchFolder {
@@ -19,16 +20,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid gray;
+  border-right: 1px solid rgb(225, 225, 225);
 }
 
-.selectedFolder {
+.searchFolder input {
+  height: 20px;
+  width: 175px;
+  padding: 15px;
+  border: 0.5px solid rgb(225, 225, 225);
+}
+
+.create {
   height: 50px;
   display: flex;
   width: 200px;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid gray;
+  border-right: 1px solid rgb(225, 225, 225);
+  color: rgb(125, 125, 125);
+  cursor: pointer;
+}
+
+.create:hover{
+  background-color: rgb(235, 235, 235);
+}
+
+.create p{
+  margin-left: 4px;
 }
 
 .account {
@@ -38,6 +56,26 @@
   align-items: center;
   font-size: 12px;
   height: 50px;
+}
+
+.account p {
+  color: rgb(125, 125, 125);
+  font-size: 13.5px;
+}
+
+.account button {
+  height: 20px;
+  width: 125px;
+  margin-right: 15px;
+  margin-left: 30px;
+  padding: 15px;
+  border: 0.5px solid rgb(225, 225, 225);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(125, 125, 125);
+  cursor: pointer;
 }
 
 .formContainer {
@@ -57,6 +95,7 @@
   height: 85vh;
   border: 1px solid black;
   background-color: white;
+  z-index: 0;
 }
 
 .main {
@@ -67,32 +106,55 @@
 
 .folders {
   width: 200px;
-  border-right: 1px solid gray;
+  height: calc(100vh - 50px);
+  overflow: auto;
+  background-color: rgb(252, 252, 252);
 }
 
 .cards {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(225, 225, 225);
+  font-size: 14px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .noteFolder {
   color: gray;
+  margin-left: 15px;
 }
 
-.options{
+.options {
+  width: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.options button {
   background-color: transparent;
   border: 0;
-  cursor:pointer;
+  color: rgb(210, 210, 210);
+  cursor: pointer;
+}
+
+.options button:hover {
+  color: rgb(155, 155, 155);
 }
 
 .notes {
   width: 200px;
-  border-right: 1px solid gray;
+  height: calc(100vh - 50px);
+  overflow: auto;
+  background-color: rgb(252, 252, 252);
+  border-right: 1px solid rgb(225, 225, 225);
 }
 
 .note {
   width: calc(100% - 400px);
+  height: calc(100vh - 50px);
+  overflow: auto;
+  padding: 55px 60px;
 }

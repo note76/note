@@ -13,6 +13,7 @@ export default function Note() {
   const [ notes, setNotes ] = useState()
   const [ key, setkey] = useState('')
   const [ selectedNote, setSelectedNote ] = useState('')
+  const [ selectedNoteTitle, setSelectedNoteTitle ] = useState('')
   const [ updating, setUpdating ] = useState(false)
   const [search, setSearch] = useState()
   const [searching, setSearching] = useState(false)
@@ -108,9 +109,9 @@ export default function Note() {
 
   useEffect(() => {
     const timer = setTimeout(()=> {
-      if (!user){
-        Router.push('/')
-      }
+      // if (!user){
+      //   Router.push('/')
+      // }
 
       firebase.database().ref(uid).on('value', result => {
         const resultFolderTitleNote = Object.entries(result.val() ?? {}).map(([key, value]) => {
@@ -137,38 +138,41 @@ export default function Note() {
         <meta name='description' content='Digital notebook'/>
         <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0'></meta>
         <link rel='icon' href='/favicon.ico'/>
+        <link href="https://css.gg/css?=|add|arrow-left|pen|trash-empty" rel="stylesheet"/>
       </Head>
 
       <header className={styles.header}>
         <div className={styles.searchFolder}>
           <input type='text' placeholder='Search' onChange={searchFolder}></input>
         </div> 
-        <div className={styles.selectedFolder}>
-          <p>{selectedFolder}</p>
+        <div className={styles.create} onClick={()=> setShowModal(true)}>
+          <i class="gg-add"></i>
+          <p>New note</p>
+            {
+              showModal ? (
+                <div className={styles.formContainer}>
+                  <div className={styles.form}>
+                    <form>
+                      <button onClick={()=> {
+                        setShowModal(false)
+                        setUpdating(false)}}>
+                          <i class="gg-arrow-left"></i>
+                      </button>
+                      <input type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}></input>
+                      <input type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>
+                      <input type='text' placeholder='Note' value={note} onChange={event => setNote(event.target.value)}></input>
+                      {updating ? <button type='button' onClick={update}>Update</button> : <button type='button' onClick={save}>Save</button>}
+                    </form>
+                  </div>
+                </div>
+              ) : null
+            }
         </div>
         <div className={styles.account}>
-          <button type='button' onClick={()=> setShowModal(true)}>+</button>
-          {
-            showModal ? (
-              <div className={styles.formContainer}>
-                <div className={styles.form}>
-                  <form>
-                    <button onClick={()=> {
-                      setShowModal(false)
-                      setUpdating(false)}}>X</button>
-                    <input type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}></input>
-                    <input type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>
-                    <input type='text' placeholder='Note' value={note} onChange={event => setNote(event.target.value)}></input>
-                    {updating ? <button type='button' onClick={update}>Update</button> : <button type='button' onClick={save}>Save</button>}
-                  </form>
-                </div>
-              </div>
-            ) : null
-          }
-          <a>{user?.name}</a>
+          <p>{user?.name}</p>
           <button onClick={() => {
             signout() 
-            uid='null'}}>signout</button>
+            uid='null'}}>Sign out</button>
         </div>
       </header>
 
@@ -181,9 +185,13 @@ export default function Note() {
                 folders()
               }}>
                 <p className={styles.noteFolder}>{note.folder}</p>
-                <div>
-                  <button className={styles.options} onClick={() => edit(note)}>✏️</button>
-                  <button className={styles.options} onClick={() => deleteNote(note.key)}>🗑️</button>
+                <div className={styles.options}>
+                  <button onClick={() => edit(note)}>
+                    <i class="gg-pen"></i>
+                  </button>
+                  <button onClick={() => deleteNote(note.key)}>
+                    <i class="gg-trash-empty"></i>
+                  </button>
                 </div>  
               </div>
             )
@@ -194,9 +202,13 @@ export default function Note() {
                 folders()
               }}>
                 <p className={styles.noteFolder}>{note.folder}</p>
-                <div>
-                  <button className={styles.options} onClick={() => edit(note)}>✏️</button>
-                  <button className={styles.options} onClick={() => deleteNote(note.key)}>🗑️</button>
+                <div className={styles.options}>
+                  <button onClick={() => edit(note)}>
+                    <i class="gg-pen"></i>
+                  </button>
+                  <button onClick={() => deleteNote(note.key)}>
+                    <i class="gg-trash-empty"></i>
+                  </button>
                 </div>  
               </div>
             )
@@ -206,27 +218,40 @@ export default function Note() {
         <div className={styles.notes}>      
           {selectFolder ? search?.map(note => {
             return (
-              <div className={styles.cards} key={note.key}>
-                <p className={styles.noteFolder} onClick={() => selectNote(note.note)}>{note.title}</p>
-                <div>
-                  <button className={styles.options} onClick={() => edit(note)}>✏️</button>
-                  <button className={styles.options} onClick={() => deleteNote(note.key)}>🗑️</button>
+              <div className={styles.cards} key={note.key} onClick={() => {
+                selectNote(note.note)
+                setSelectedNoteTitle(note.title)}}>
+                <p className={styles.noteFolder}>{note.title}</p>
+                <div className={styles.options}>
+                  <button onClick={() => edit(note)}>
+                    <i class="gg-pen"></i>
+                  </button>
+                  <button onClick={() => deleteNote(note.key)}>
+                    <i class="gg-trash-empty"></i>
+                  </button>
                 </div>
               </div>
             )
           }) : notes?.map(note => {
             return (
-              <div className={styles.cards} key={note.key}>
-                <p className={styles.noteFolder} onClick={() => selectNote(note.note)}>{note.title}</p>
-                <div>
-                  <button className={styles.options} onClick={() => edit(note)}>✏️</button>
-                  <button className={styles.options} onClick={() => deleteNote(note.key)}>🗑️</button>
+              <div className={styles.cards} key={note.key} onClick={() => {
+                selectNote(note.note)
+                setSelectedNoteTitle(note.title)}}>
+                <p className={styles.noteFolder}>{note.title}</p>
+                <div className={styles.options}>
+                  <button onClick={() => edit(note)}>
+                    <i class="gg-pen"></i>
+                  </button>
+                  <button onClick={() => deleteNote(note.key)}>
+                    <i class="gg-trash-empty"></i>
+                  </button>
                 </div>
               </div>
             )
           })}
         </div>
         <div className={styles.note}>
+          <h1>{selectedNoteTitle}</h1>
           <p>{selectedNote}</p>
         </div>
       </main>
