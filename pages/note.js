@@ -148,25 +148,6 @@ export default function Note() {
         <div className={styles.create} onClick={()=> setShowModal(true)}>
           <i class="gg-add"></i>
           <p>New note</p>
-            {
-              showModal ? (
-                <div className={styles.formContainer}>
-                  <div className={styles.form}>
-                    <form>
-                      <button onClick={()=> {
-                        setShowModal(false)
-                        setUpdating(false)}}>
-                          <i class="gg-arrow-left"></i>
-                      </button>
-                      <input type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}></input>
-                      <input type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>
-                      <input type='text' placeholder='Note' value={note} onChange={event => setNote(event.target.value)}></input>
-                      {updating ? <button type='button' onClick={update}>Update</button> : <button type='button' onClick={save}>Save</button>}
-                    </form>
-                  </div>
-                </div>
-              ) : null
-            }
         </div>
         <div className={styles.account}>
           <p>{user?.name}</p>
@@ -219,9 +200,12 @@ export default function Note() {
           {selectFolder ? search?.map(note => {
             return (
               <div className={styles.cards} key={note.key} onClick={() => {
-                selectNote(note.note)
-                setSelectedNoteTitle(note.title)}}>
-                <p className={styles.noteFolder}>{note.title}</p>
+                setShowModal(false)
+                setUpdating(false)}}>
+                <p className={styles.noteFolder} onClick={() => {
+                  selectNote(note.note)
+                  setSelectedNoteTitle(note.title)
+                  }}>{note.title}</p>
                 <div className={styles.options}>
                   <button onClick={() => edit(note)}>
                     <i class="gg-pen"></i>
@@ -235,9 +219,12 @@ export default function Note() {
           }) : notes?.map(note => {
             return (
               <div className={styles.cards} key={note.key} onClick={() => {
-                selectNote(note.note)
-                setSelectedNoteTitle(note.title)}}>
-                <p className={styles.noteFolder}>{note.title}</p>
+                setShowModal(false)
+                setUpdating(false)}}>
+                <p className={styles.noteFolder} onClick={() => {
+                  selectNote(note.note)
+                  setSelectedNoteTitle(note.title)
+                  }}>{note.title}</p>
                 <div className={styles.options}>
                   <button onClick={() => edit(note)}>
                     <i class="gg-pen"></i>
@@ -251,8 +238,32 @@ export default function Note() {
           })}
         </div>
         <div className={styles.note}>
-          <h1>{selectedNoteTitle}</h1>
-          <p>{selectedNote}</p>
+          {
+            showModal ? (
+              <div>
+                <div className={styles.noteOptions}>
+                  <div>
+                    <button className={styles.closeModal} onClick={()=> {
+                      setShowModal(false)
+                      setUpdating(false)}}>
+                        <i class="gg-arrow-left"></i>
+                    </button>
+                    <input className={styles.folderInput} type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}></input>
+                  </div>
+                  {updating ? <button type='button' className={styles.saveUpdate} onClick={update}>Update</button> : <button type='button' className={styles.saveUpdate} onClick={save}>Save</button>}
+                </div>
+                <form className={styles.form}>
+                  <input className={styles.titleInput} type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>
+                  <input className={styles.noteInput} type='text' placeholder='Note' value={note} onChange={event => setNote(event.target.value)}></input>
+                </form>
+              </div>
+            ) : (
+              <div>
+                <h1>{selectedNoteTitle}</h1>
+                <p>{selectedNote}</p>
+              </div>
+            )
+          }
         </div>
       </main>
     </div>

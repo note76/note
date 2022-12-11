@@ -78,24 +78,74 @@
   cursor: pointer;
 }
 
-.formContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  width: 100vw;
-  height: 100vh;
+.closeModal {
+  background-color: transparent;
+  border: 0;
+  color: rgb(210, 210, 210);
+  cursor: pointer;
+}
+
+.closeModal:hover {
+  color: rgb(155, 155, 155);
+}
+
+.noteOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.saveUpdate {
+  height: 20px;
+  width: 125px;
+  margin-right: 15px;
+  margin-left: 30px;
+  padding: 15px;
+  border: 0.5px solid rgb(225, 225, 225);
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: rgb(125, 125, 125);
+  cursor: pointer;
 }
 
 .form{
-  width: 85vw;
-  height: 85vh;
-  border: 1px solid black;
-  background-color: white;
-  z-index: 0;
+  width: 100%;
+  height: 75vh;
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  border: 0;
+}
+
+.form input:focus {
+  border: 0;
+  outline: 0;
+}
+
+.folderInput {
+  font-size: 16px;
+  margin-left: 30px;
+  border: 0;
+}
+
+.folderInput:focus {
+  outline: 0;
+  border: 0;
+}
+
+.titleInput {
+  font-weight: bolder;
+  font-size: 32px;
+  margin-bottom: 25px;
+}
+
+.noteInput {
+  font-size: 16px;
 }
 
 .main {
@@ -109,6 +159,7 @@
   height: calc(100vh - 50px);
   overflow: auto;
   background-color: rgb(252, 252, 252);
+  border-right: 1px solid rgb(225, 225, 225);
 }
 
 .cards {
@@ -157,4 +208,13 @@
   height: calc(100vh - 50px);
   overflow: auto;
   padding: 55px 60px;
+}
+
+.note h1 {
+  font-size: 32px;
+  margin-bottom: 25px;
+}
+
+.note p {
+  font-size: 16px;
 }
