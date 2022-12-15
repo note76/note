@@ -248,12 +248,12 @@ export default function Note() {
                       setUpdating(false)}}>
                         <i class="gg-arrow-left"></i>
                     </button>
-                    <input className={styles.folderInput} type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}></input>
+                    <input maxLength={13} className={styles.folderInput} type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}></input>
                   </div>
                   {updating ? <button type='button' className={styles.saveUpdate} onClick={update}>Update</button> : <button type='button' className={styles.saveUpdate} onClick={save}>Save</button>}
                 </div>
                 <form className={styles.form}>
-                  <input className={styles.titleInput} type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>
+                  <input maxLength={13} className={styles.titleInput} type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>
                   <textarea className={styles.noteInput} type='text' placeholder='Note' value={note} onChange={event => setNote(event.target.value)}></textarea>
                 </form>
               </div>
