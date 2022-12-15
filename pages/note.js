@@ -144,7 +144,7 @@ export default function Note() {
       <header className={styles.header}>
         <div className={styles.searchFolder}>
           <input type='text' placeholder='Search' onChange={searchFolder}></input>
-        </div> 
+        </div>
         <div className={styles.create} onClick={()=> setShowModal(true)}>
           <i class="gg-add"></i>
           <p>New note</p>
@@ -161,7 +161,7 @@ export default function Note() {
         <div className={styles.folders}>
           {searching ? search?.map(note => {
             return (
-              <div className={styles.cards} key={note.key} onClick={()=>{
+              <button className={styles.cards} key={note.key} onClick={()=>{
                 setSelectedFolder(note.folder)
                 folders()
               }}>
@@ -174,11 +174,11 @@ export default function Note() {
                     <i class="gg-trash-empty"></i>
                   </button>
                 </div>  
-              </div>
+              </button>
             )
           }) : notes?.map(note => {
             return (
-              <div className={styles.cards} key={note.key} onClick={()=>{
+              <button className={styles.cards} key={note.key} onClick={()=>{
                 setSelectedFolder(note.folder)
                 folders()
               }}>
@@ -191,7 +191,7 @@ export default function Note() {
                     <i class="gg-trash-empty"></i>
                   </button>
                 </div>  
-              </div>
+              </button>
             )
           })}
         </div>
@@ -199,7 +199,7 @@ export default function Note() {
         <div className={styles.notes}>      
           {selectFolder ? search?.map(note => {
             return (
-              <div className={styles.cards} key={note.key} onClick={() => {
+              <button className={styles.cards} key={note.key} onClick={() => {
                 setShowModal(false)
                 setUpdating(false)}}>
                 <p className={styles.noteFolder} onClick={() => {
@@ -214,11 +214,11 @@ export default function Note() {
                     <i class="gg-trash-empty"></i>
                   </button>
                 </div>
-              </div>
+              </button>
             )
           }) : notes?.map(note => {
             return (
-              <div className={styles.cards} key={note.key} onClick={() => {
+              <button className={styles.cards} key={note.key} onClick={() => {
                 setShowModal(false)
                 setUpdating(false)}}>
                 <p className={styles.noteFolder} onClick={() => {
@@ -233,7 +233,7 @@ export default function Note() {
                     <i class="gg-trash-empty"></i>
                   </button>
                 </div>
-              </div>
+              </button>
             )
           })}
         </div>
@@ -254,7 +254,7 @@ export default function Note() {
                 </div>
                 <form className={styles.form}>
                   <input className={styles.titleInput} type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>
-                  <input className={styles.noteInput} type='text' placeholder='Note' value={note} onChange={event => setNote(event.target.value)}></input>
+                  <textarea className={styles.noteInput} type='text' placeholder='Note' value={note} onChange={event => setNote(event.target.value)}></textarea>
                 </form>
               </div>
             ) : (

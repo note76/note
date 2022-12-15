@@ -20,7 +20,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid rgb(225, 225, 225);
 }
 
 .searchFolder input {
@@ -36,8 +35,8 @@
   width: 200px;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid rgb(225, 225, 225);
   color: rgb(125, 125, 125);
+  border-left: 1px solid rgb(225, 225, 225);
   cursor: pointer;
 }
 
@@ -56,6 +55,7 @@
   align-items: center;
   font-size: 12px;
   height: 50px;
+  border-left: 1px solid rgb(225, 225, 225);
 }
 
 .account p {
@@ -159,16 +159,22 @@
   height: calc(100vh - 50px);
   overflow: auto;
   background-color: rgb(252, 252, 252);
-  border-right: 1px solid rgb(225, 225, 225);
 }
 
 .cards {
+  background-color: rgb(252, 252, 252);
+  width: 200px;
+  border: 0;
   border-bottom: 1px solid rgb(225, 225, 225);
   font-size: 14px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.cards:focus {
+  background-color: rgb(240, 240, 240);
 }
 
 .noteFolder {
@@ -200,7 +206,7 @@
   height: calc(100vh - 50px);
   overflow: auto;
   background-color: rgb(252, 252, 252);
-  border-right: 1px solid rgb(225, 225, 225);
+  border-left: 1px solid rgb(225, 225, 225);
 }
 
 .note {
@@ -208,6 +214,7 @@
   height: calc(100vh - 50px);
   overflow: auto;
   padding: 55px 60px;
+  border-left: 1px solid rgb(225, 225, 225);
 }
 
 .note h1 {
@@ -217,4 +224,70 @@
 
 .note p {
   font-size: 16px;
+}
+
+@media (max-width: 750px) {
+  .folders {
+    display: none;
+  }
+
+  .searchFolder {
+    display: none;
+  }
+
+  .create {
+    width: 150px;
+    border-right: 0;
+  }
+
+  .account {
+    width: calc(100vw - 150px);
+    border-left: 1px solid rgb(225, 225, 225);
+  }
+
+  .cards {
+    width: 150px;
+  }
+
+  .notes {
+    width: 150px;
+  }
+
+  .note {
+    width: calc(100% - 150px);
+    border-left: 1px solid rgb(225, 225, 225);
+  }
+}
+@media (max-width: 475px) {
+  .create {
+    width: 100px;
+  }
+
+  .account {
+    width: calc(100vw - 100px);
+    font-size: 10px;
+  }
+
+  .account p {
+    font-size: 12px;
+  }
+
+  .account button {
+    width: 90px;
+    margin-right: 15px;
+    font-size: 11.25px;
+    margin-left: 30px;
+  }
+
+  .cards {
+    width: 100px;
+  }
+
+  .notes {
+    width: 100px;
+  }
+
+  .note {
+    width: calc(100% - 100px);
+  }
 }

@@ -24,3 +24,15 @@ a {
   width: 7.5px;
   background-color: rgb(220, 220, 220)
 }
+
+@media (max-width: 475px) {
+  .gg-add {
+    display: none;
+  }
+  .gg-pen {
+    display: none;
+  }
+  .gg-trash-empty {
+    display: none;
+  }
+}
