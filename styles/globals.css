@@ -25,6 +25,22 @@ a {
   background-color: rgb(220, 220, 220)
 }
 
+.color1 {
+  background-color: #050003;
+}
+.color2 {
+  background-color: #496940;
+}
+.color3 {
+  background-color: #93842f;
+}
+.color4 {
+  background-color: #ffa739;
+}
+.color5 {
+  background-color: #fce07f;
+}
+
 @media (max-width: 475px) {
   .gg-add {
     display: none;

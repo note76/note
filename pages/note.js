@@ -18,8 +18,6 @@ export default function Note() {
   const [search, setSearch] = useState()
   const [searching, setSearching] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [ selectedFolder, setSelectedFolder] = useState('')
-  const [ selectFolder, setSelectFolder] = useState('')
   var uid = user?.uid
 
   if(uid != null){
@@ -75,28 +73,11 @@ export default function Note() {
 
       notes?.map(note => {
         const rule = new RegExp(event.target.value, 'gi')
-        if(rule.test(note.folder)){
+        if(rule.test(note.title)){
           searchResult.push(note)
         }
       })
 
-      setSearch(searchResult)
-    } else{
-      setSearching(false)
-    }
-  }
-
-  function folders(){
-    if(selectedFolder.length > 0) {
-      setSelectFolder(true)
-      const searchResult = new Array
-
-      notes?.map(note => {
-        if(selectedFolder == note.folder){
-          searchResult.push(note)
-        } 
-      })
-    
       setSearch(searchResult)
     } else{
       setSearching(false)
@@ -158,56 +139,23 @@ export default function Note() {
       </header>
 
       <main className={styles.main}>
-        <div className={styles.folders}>
+        <div className={styles.notes}>      
           {searching ? search?.map(note => {
             return (
-              <button className={styles.cards} key={note.key} onClick={()=>{
-                setSelectedFolder(note.folder)
-                folders()
-              }}>
-                <p className={styles.noteFolder}>{note.folder}</p>
-                <div className={styles.options}>
-                  <button onClick={() => edit(note)}>
-                    <i class="gg-pen"></i>
-                  </button>
-                  <button onClick={() => deleteNote(note.key)}>
-                    <i class="gg-trash-empty"></i>
-                  </button>
-                </div>  
-              </button>
-            )
-          }) : notes?.map(note => {
-            return (
-              <button className={styles.cards} key={note.key} onClick={()=>{
-                setSelectedFolder(note.folder)
-                folders()
-              }}>
-                <p className={styles.noteFolder}>{note.folder}</p>
-                <div className={styles.options}>
-                  <button onClick={() => edit(note)}>
-                    <i class="gg-pen"></i>
-                  </button>
-                  <button onClick={() => deleteNote(note.key)}>
-                    <i class="gg-trash-empty"></i>
-                  </button>
-                </div>  
-              </button>
-            )
-          })}
-        </div>
-
-        <div className={styles.notes}>      
-          {selectFolder ? search?.map(note => {
-            return (
-              <button className={styles.cards} key={note.key} onClick={() => {
-                setShowModal(false)
-                setUpdating(false)}}>
-                <p className={styles.noteFolder} onClick={() => {
+              <button className={styles.cards} key={note.key}>
+                <div className={styles.folderColor}>
+                  <div className={styles.pink}>t</div>
+                </div>
+                <p className={styles.noteTitle} onClick={()=> {
                   selectNote(note.note)
                   setSelectedNoteTitle(note.title)
-                  }}>{note.title}</p>
+                  setShowModal(false)
+                  setUpdating(false)
+                }}>{note.title}</p>
                 <div className={styles.options}>
-                  <button onClick={() => edit(note)}>
+                  <button onClick={() => {
+                    edit(note)
+                    setShowModal(true)}}>
                     <i class="gg-pen"></i>
                   </button>
                   <button onClick={() => deleteNote(note.key)}>
@@ -218,15 +166,20 @@ export default function Note() {
             )
           }) : notes?.map(note => {
             return (
-              <button className={styles.cards} key={note.key} onClick={() => {
-                setShowModal(false)
-                setUpdating(false)}}>
-                <p className={styles.noteFolder} onClick={() => {
+              <button className={styles.cards} key={note.key}>
+                <div className={styles.folderColor}>
+                  <div className={note.folder}></div>
+                </div>
+                <p className={styles.noteTitle} onClick={()=> {
                   selectNote(note.note)
                   setSelectedNoteTitle(note.title)
-                  }}>{note.title}</p>
+                  setShowModal(false)
+                  setUpdating(false)
+                }}>{note.title}</p>
                 <div className={styles.options}>
-                  <button onClick={() => edit(note)}>
+                  <button onClick={() => {
+                    edit(note)
+                    setShowModal(true)}}>
                     <i class="gg-pen"></i>
                   </button>
                   <button onClick={() => deleteNote(note.key)}>
@@ -248,9 +201,20 @@ export default function Note() {
                       setUpdating(false)}}>
                         <i class="gg-arrow-left"></i>
                     </button>
-                    <input maxLength={13} className={styles.folderInput} type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}></input>
                   </div>
-                  {updating ? <button type='button' className={styles.saveUpdate} onClick={update}>Update</button> : <button type='button' className={styles.saveUpdate} onClick={save}>Save</button>}
+                  <div className={styles.saveOptions}>
+                    <div className={styles.selectOptions}>
+                      <span>Colours</span>
+                      <select className={styles.folderInput} type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}>
+                        <option className={styles.color1} value={"color1"}></option>
+                        <option className={styles.color2} value={"color2"}></option>
+                        <option className={styles.color3} value={"color3"}></option>
+                        <option className={styles.color4} value={"color4"}></option>
+                        <option className={styles.color5} value={"color5"}></option>
+                      </select>
+                    </div>
+                    {updating ? <button type='button' className={styles.saveUpdate} onClick={update}>Update</button> : <button type='button' className={styles.saveUpdate} onClick={save}>Save</button>}
+                  </div>
                 </div>
                 <form className={styles.form}>
                   <input maxLength={13} className={styles.titleInput} type='text' placeholder='Title' value={title} onChange={event => setTitle(event.target.value)}></input>

@@ -127,15 +127,60 @@
   outline: 0;
 }
 
+.selectOptions {
+  background-color: rgb(235, 235, 235);
+  width: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 33px;
+  color: rgb(125, 125, 125);
+  border-radius: 50px;
+  font-size: 14px;
+}
+
+.saveOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .folderInput {
-  font-size: 16px;
-  margin-left: 30px;
   border: 0;
+  background-color: transparent;
+  width: 100px;
 }
 
 .folderInput:focus {
   outline: 0;
   border: 0;
+}
+
+.folderColor{
+  margin-left: -3px;
+  width: 4px;
+  height: 50px;
+}
+
+.folderColor div{
+  width: 100%;
+  height: 100%;
+}
+
+.color1 {
+  background-color: #050003;
+}
+.color2 {
+  background-color: #496940;
+}
+.color3 {
+  background-color: #93842f;
+}
+.color4 {
+  background-color: #ffa739;
+}
+.color5 {
+  background-color: #fce07f;
 }
 
 .titleInput {
@@ -147,6 +192,7 @@
 .noteInput {
   font-size: 16px;
   resize: none;
+  width: calc(100vw - 400px);
 }
 
 .main {
@@ -172,15 +218,21 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  overflow: hidden;
+  height: 50px;
 }
 
 .cards:focus {
   background-color: rgb(240, 240, 240);
 }
 
-.noteFolder {
+.noteTitle {
   color: gray;
-  margin-left: 15px;
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 15px;
+  text-align: left;
 }
 
 .options {
@@ -211,7 +263,7 @@
 }
 
 .note {
-  width: calc(100% - 400px);
+  width: calc(100% - 200px);
   height: calc(100vh - 50px);
   overflow: auto;
   padding: 55px 60px;
@@ -258,6 +310,10 @@
     width: calc(100% - 150px);
     border-left: 1px solid rgb(225, 225, 225);
   }
+
+  .noteInput {
+    width: calc(100vw - 250px);
+  }
 }
 @media (max-width: 475px) {
   .create {
@@ -290,5 +346,9 @@
 
   .note {
     width: calc(100% - 100px);
+  }
+
+  .noteInput {
+    width: calc(100vw - 200px);
   }
 }
