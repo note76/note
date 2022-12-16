@@ -26,19 +26,19 @@ a {
 }
 
 .color1 {
-  background-color: #050003;
+  background-color: red;
 }
 .color2 {
-  background-color: #496940;
+  background-color: blue;
 }
 .color3 {
-  background-color: #93842f;
+  background-color: black;
 }
 .color4 {
-  background-color: #ffa739;
+  background-color: orange;
 }
 .color5 {
-  background-color: #fce07f;
+  background-color: green;
 }
 
 @media (max-width: 475px) {

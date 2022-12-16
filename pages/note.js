@@ -90,10 +90,6 @@ export default function Note() {
 
   useEffect(() => {
     const timer = setTimeout(()=> {
-      // if (!user){
-      //   Router.push('/')
-      // }
-
       firebase.database().ref(uid).on('value', result => {
         const resultFolderTitleNote = Object.entries(result.val() ?? {}).map(([key, value]) => {
           return {
@@ -107,7 +103,7 @@ export default function Note() {
         setNotes(resultFolderTitleNote)
       })
     })
-    return ()=>{
+    return () => {
       clearTimeout(timer)
     }
   })
@@ -126,7 +122,12 @@ export default function Note() {
         <div className={styles.searchFolder}>
           <input type='text' placeholder='Search' onChange={searchFolder}></input>
         </div>
-        <div className={styles.create} onClick={()=> setShowModal(true)}>
+        <div className={styles.create} onClick={()=> {
+          if (!user){
+            Router.push('/')
+          }
+          setShowModal(true)
+          }}>
           <i class="gg-add"></i>
           <p>New note</p>
         </div>
@@ -204,13 +205,13 @@ export default function Note() {
                   </div>
                   <div className={styles.saveOptions}>
                     <div className={styles.selectOptions}>
-                      <span>Colours</span>
                       <select className={styles.folderInput} type='text' placeholder='Folder' value={folder} onChange={event => setFolder(event.target.value)}>
-                        <option className={styles.color1} value={"color1"}></option>
-                        <option className={styles.color2} value={"color2"}></option>
-                        <option className={styles.color3} value={"color3"}></option>
-                        <option className={styles.color4} value={"color4"}></option>
-                        <option className={styles.color5} value={"color5"}></option>
+                        <option selected value={"none"}>Colors</option>
+                        <option className={styles.color1} value={"color1"}>Red</option>
+                        <option className={styles.color2} value={"color2"}>Blue</option>
+                        <option className={styles.color3} value={"color3"}>Black</option>
+                        <option className={styles.color4} value={"color4"}>Orange</option>
+                        <option className={styles.color5} value={"color5"}>Green</option>
                       </select>
                     </div>
                     {updating ? <button type='button' className={styles.saveUpdate} onClick={update}>Update</button> : <button type='button' className={styles.saveUpdate} onClick={save}>Save</button>}

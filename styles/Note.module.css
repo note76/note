@@ -129,14 +129,12 @@
 
 .selectOptions {
   background-color: rgb(235, 235, 235);
-  width: 175px;
+  width: 115px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 33px;
-  color: rgb(125, 125, 125);
   border-radius: 50px;
-  font-size: 14px;
 }
 
 .saveOptions {
@@ -148,7 +146,8 @@
 .folderInput {
   border: 0;
   background-color: transparent;
-  width: 100px;
+  width: 70px;
+  color: rgb(125, 125, 125);
 }
 
 .folderInput:focus {
@@ -165,22 +164,6 @@
 .folderColor div{
   width: 100%;
   height: 100%;
-}
-
-.color1 {
-  background-color: #050003;
-}
-.color2 {
-  background-color: #496940;
-}
-.color3 {
-  background-color: #93842f;
-}
-.color4 {
-  background-color: #ffa739;
-}
-.color5 {
-  background-color: #fce07f;
 }
 
 .titleInput {
